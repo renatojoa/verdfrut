@@ -1,5 +1,4 @@
 class UserModel {
-
   String UserName;
   String UserMail;
   String UserID;

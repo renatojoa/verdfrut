@@ -3,6 +3,8 @@ import 'package:greengroocer/src/config/custom_colors.dart';
 import 'package:greengroocer/src/pages/auth/sign_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
+  const SplashScreen({super.key});
+
   @override
   _SplashScreenState createState() => _SplashScreenState();
 }
@@ -17,12 +19,12 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _navigateToNextScreen() async {
     // Aguarde por alguns segundos (por exemplo, 2 segundos) para simular a exibição da splash screen
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     // Navegue para a próxima tela (pode ser a tela inicial do aplicativo)
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => SignInScreen()),
+      MaterialPageRoute(builder: (context) => const SignInScreen()),
     );
   }
 
@@ -36,16 +38,16 @@ class _SplashScreenState extends State<SplashScreen> {
           children: [
             Container(
               color: CustomColors.customWhitechColor,
-              child: Image.asset('assets/images/logo.png',
+              child: Image.asset(
+                'assets/images/logo.png',
+              ),
             ),
-            ),
-            Text('Produtos para seu dia-dia', style: TextStyle(
-              fontSize: 20,
-              color: CustomColors.customPurpleColor
-            ),)
+            Text(
+              'Produtos para seu dia-dia',
+              style: TextStyle(
+                  fontSize: 20, color: CustomColors.customPurpleColor),
+            )
           ],
-        
-          
         ),
       ),
     );

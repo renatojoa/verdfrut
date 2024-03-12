@@ -76,12 +76,13 @@ List<String> categories = [
   'Lacticinios',
 ];
 
-List<CartItemModel> cartList = [
-];
+List<CartItemModel> cartList = [];
 
 UserModel userData = UserModel(
-  UserName: 'Renato Araujo', UserMail: 'renatojoa@gmail.com', UserID: '06982807410', UserPhone: '81996873479'
-  );
+    UserName: 'Renato Araujo',
+    UserMail: 'renatojoa@gmail.com',
+    UserID: '06982807410',
+    UserPhone: '81996873479');
 
 List<OrderModel> orders = [
   OrderModel(
@@ -109,7 +110,7 @@ List<OrderModel> orders = [
     orderStatus: 'delivered',
     dueDateOrderPay: DateTime.parse('2025-10-10 17:30:10.548'),
   ),
-    OrderModel(
+  OrderModel(
     itens: [
       CartItemModel(item: guava, qtd: 3),
       CartItemModel(item: mango, qtd: 2),
@@ -121,7 +122,7 @@ List<OrderModel> orders = [
     orderStatus: 'paid',
     dueDateOrderPay: DateTime.parse('2025-10-10 17:30:10.548'),
   ),
-    OrderModel(
+  OrderModel(
     itens: [
       CartItemModel(item: kiwi, qtd: 1),
       CartItemModel(item: papaya, qtd: 3),
@@ -133,18 +134,18 @@ List<OrderModel> orders = [
     orderStatus: 'preparing_purchase',
     dueDateOrderPay: DateTime.parse('2025-10-10 17:30:10.548'),
   ),
-    OrderModel(
-      itens: [
-        CartItemModel(item: kiwi, qtd: 1),
-        CartItemModel(item: papaya, qtd: 3),
-      ],
-      qrCodeValue: 'Xpy1350an5h4v2j2345k34',
-      orderID: 'pending_payment',
-      finalPrice: 430.50,
-      orderDate: DateTime.parse('2012-02-03 17:30:10.548'),
-      orderStatus: 'pending_payment',
-      dueDateOrderPay: DateTime.parse('2025-10-10 17:30:10.548'),
-    ),
+  OrderModel(
+    itens: [
+      CartItemModel(item: kiwi, qtd: 1),
+      CartItemModel(item: papaya, qtd: 3),
+    ],
+    qrCodeValue: 'Xpy1350an5h4v2j2345k34',
+    orderID: 'pending_payment',
+    finalPrice: 430.50,
+    orderDate: DateTime.parse('2012-02-03 17:30:10.548'),
+    orderStatus: 'pending_payment',
+    dueDateOrderPay: DateTime.parse('2025-10-10 17:30:10.548'),
+  ),
 ];
 /*    'pending_payment':0,
     'refounded':1,

@@ -1,5 +1,4 @@
 class ItemModel {
-
   String itemName;
   String imageUrl;
   String unit;
