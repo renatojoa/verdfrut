@@ -1,6 +1,5 @@
 import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:flutter/material.dart';
-import 'package:greengroocer/controller/countCar_controller.dart';
 import 'package:greengroocer/src/components/custom_shimmer.dart';
 import 'package:greengroocer/src/config/custom_colors.dart';
 import 'package:greengroocer/src/pages/home/components/category_tile.dart';
@@ -38,11 +37,17 @@ class _HomeTabState extends State<HomeTab> {
 
   bool isLoading = false;
 
+void dispose() {
+  // Cancela cualquier temporizador o detiene cualquier animación aquí
+  // Esto asegura que no se realicen actualizaciones de estado después de que el widget haya sido eliminado
+  super.dispose();
+}
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         isLoading = true;
         cartQuantityItems = countCart();
@@ -94,9 +99,9 @@ class _HomeTabState extends State<HomeTab> {
                           icon: Icon(Icons.shopping_cart,
                               color: CustomColors.customPurpleColor),
                           badgeOptions: const BadgeOptions(
-                            active: true,
-                            backgroundColor: Colors.red,
-                          ),
+                              active: true,
+                              backgroundColor: Colors.green,
+                              foregroundColor: Colors.white),
                         ),
                       )),
                 ],
@@ -122,23 +127,28 @@ class _HomeTabState extends State<HomeTab> {
                 child: TextFormField(
                   keyboardType: TextInputType.streetAddress,
                   decoration: InputDecoration(
-                      filled: true,
-                      fillColor: Colors.white,
-                      isDense: true,
-                      hintText: 'Pesquise eu produto aqui',
-                      hintStyle: TextStyle(
-                        color: Colors.grey.shade400,
-                        fontSize: 14,
-                      ),
-                      prefixIcon: Icon(
-                        Icons.search,
-                        color: CustomColors.customPurpleColor,
-                        size: 21,
-                      ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(60),
-                          borderSide: const BorderSide(
-                              width: 0, style: BorderStyle.none))),
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide: BorderSide(
+                            color: CustomColors.customLightPurpleColor)),
+                    enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(50),
+                        borderSide:
+                            BorderSide(color: CustomColors.customPurpleColor)),
+                    isDense: true,
+                    hintText: 'Pesquise eu produto aqui',
+                    hintStyle: TextStyle(
+                      color: Colors.grey.shade400,
+                      fontSize: 14,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.search,
+                      color: CustomColors.customPurpleColor,
+                      size: 21,
+                    ),
+                  ),
                 ),
               ),
 

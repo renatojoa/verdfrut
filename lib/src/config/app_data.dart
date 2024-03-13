@@ -4,58 +4,64 @@ import 'package:greengroocer/src/models/order_model.dart';
 import 'package:greengroocer/src/models/user_model.dart';
 
 ItemModel apple = ItemModel(
-  description:
-      'A melhor maçã da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
-  imageUrl: 'assets/fruits/apple.png',
-  itemName: 'Maçã',
-  price: 5.5,
-  unit: 'kg',
-);
+    description:
+        'A melhor maçã da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+    imageUrl: 'assets/fruits/apple.png',
+    itemName: 'Maçã',
+    price: 5.5,
+    unit: 'kg',
+    ncm: '15.29.453.67.23',
+    nutrionalURL: 'www.google.com');
 
 ItemModel grape = ItemModel(
-  imageUrl: 'assets/fruits/grape.png',
-  itemName: 'Uva',
-  price: 7.4,
-  unit: 'kg',
-  description:
-      'A melhor uva da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
-);
+    imageUrl: 'assets/fruits/grape.png',
+    itemName: 'Uva',
+    price: 7.4,
+    unit: 'kg',
+    description:
+        'A melhor uva da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+    ncm: '15.29.453.67.23',
+    nutrionalURL: 'www.google.com');
 
 ItemModel guava = ItemModel(
-  imageUrl: 'assets/fruits/guava.png',
-  itemName: 'Goiaba',
-  price: 11.5,
-  unit: 'kg',
-  description:
-      'A melhor goiaba da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
-);
+    imageUrl: 'assets/fruits/guava.png',
+    itemName: 'Goiaba',
+    price: 11.5,
+    unit: 'kg',
+    description:
+        'A melhor goiaba da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+    ncm: '15.29.453.67.23',
+    nutrionalURL: 'www.google.com');
 
 ItemModel kiwi = ItemModel(
-  imageUrl: 'assets/fruits/kiwi.png',
-  itemName: 'Kiwi',
-  price: 2.5,
-  unit: 'un',
-  description:
-      'O melhor kiwi da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
-);
+    imageUrl: 'assets/fruits/kiwi.png',
+    itemName: 'Kiwi',
+    price: 2.5,
+    unit: 'un',
+    description:
+        'O melhor kiwi da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+    ncm: '15.29.453.67.23',
+    nutrionalURL: 'www.google.com');
 
 ItemModel mango = ItemModel(
-  imageUrl: 'assets/fruits/mango.png',
-  itemName: 'Manga',
-  price: 2.5,
-  unit: 'un',
-  description:
-      'A melhor manga da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
-);
+    imageUrl: 'assets/fruits/mango.png',
+    itemName: 'Manga',
+    price: 2.5,
+    unit: 'un',
+    description:
+        'A melhor manga da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+    ncm: '15.29.453.67.23',
+    nutrionalURL: 'www.google.com');
 
 ItemModel papaya = ItemModel(
-  imageUrl: 'assets/fruits/papaya.png',
-  itemName: 'Mamão papaya',
-  price: 8,
-  unit: 'kg',
-  description:
-      'O melhor mamão da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
-);
+    imageUrl: 'assets/fruits/papaya.png',
+    itemName: 'Mamão papaya',
+    price: 8,
+    unit: 'kg',
+    description:
+        'O melhor mamão da região e que conta com o melhor preço de qualquer quitanda. Este item conta com vitaminas essenciais para o fortalecimento corporal, resultando em uma vida saudável.',
+    ncm: '15.29.453.67.23',
+    nutrionalURL: 'www.google.com');
 
 // Lista de produtos
 List<ItemModel> items = [

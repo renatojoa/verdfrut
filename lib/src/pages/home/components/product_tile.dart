@@ -2,9 +2,12 @@
 
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:greengroocer/src/config/app_data.dart';
 import 'package:greengroocer/src/config/cart_item_model.dart';
 import 'package:greengroocer/src/config/custom_colors.dart';
 import 'package:greengroocer/src/models/item_model.dart';
+import 'package:greengroocer/src/pages/home/components/dialog_pix.dart';
+import 'package:greengroocer/src/pages/home/components/ncm_modal.dart';
 import 'package:greengroocer/src/pages/product/product_details_screen.dart';
 import 'package:greengroocer/src/services/utils_services.dart';
 import 'package:greengroocer/src/config/app_data.dart' as appData;
@@ -41,7 +44,8 @@ class ProductTile extends StatelessWidget {
           },
           child: Card(
             elevation: 1,
-            shadowColor: Colors.grey.shade300,
+            shadowColor: Colors.grey.shade500,
+            color: Colors.grey.shade100,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -115,13 +119,49 @@ class ProductTile extends StatelessWidget {
                     height: 40,
                     width: 35,
                     decoration: BoxDecoration(
-                      color: CustomColors.customWhitechColor,
+                      color: CustomColors.customLightGreenColor,
                     ),
-                    child: const Icon(
+                    child: Icon(
                       Icons.add_shopping_cart_outlined,
-                      color: Colors.red,
+                      color: CustomColors.customWhitechColor,
                       size: 20,
-                      shadows: [
+                      shadows: const [
+                        BoxShadow(color: Colors.grey, blurRadius: 2),
+                      ],
+                    )),
+              ),
+            ),
+          ),
+        ),
+        Positioned(
+          bottom: 14,
+          right: 14,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Material(
+              child: InkWell(
+                onTap: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) {
+                        return NcmModal(
+                          context,
+                          ncm: item.ncm,
+                          calorico: '45 calorias',
+                        );
+                      });
+                },
+                child: Ink(
+                    height: 20,
+                    width: 20,
+                    decoration: BoxDecoration(
+                      color: CustomColors.customPurpleColor,
+                    ),
+                    child: Icon(
+                      Icons.info_outline,
+                      color: CustomColors.customWhitechColor,
+                      size: 14,
+                      shadows: const [
                         BoxShadow(color: Colors.grey, blurRadius: 2),
                       ],
                     )),

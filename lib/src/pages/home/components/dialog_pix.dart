@@ -61,7 +61,7 @@ class QrCodeView extends StatelessWidget {
               label: Text(
                 'Copiar Código Pix',
                 style: TextStyle(
-                  color: CustomColors.customWhitechColor,
+                  color: CustomColors.customPurpleColor,
                 ),
               ),
             ),
