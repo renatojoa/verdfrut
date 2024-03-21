@@ -5,9 +5,11 @@ import 'package:greengroocer/src/config/custom_colors.dart';
 import 'package:greengroocer/src/pages/home/components/category_tile.dart';
 import 'package:greengroocer/src/config/app_data.dart' as appData;
 import 'package:greengroocer/src/pages/home/components/product_tile.dart';
+import 'package:greengroocer/src/repository/cart_repository.dart';
 
 class HomeTab extends StatefulWidget {
-  const HomeTab({super.key});
+  HomeTab({super.key, required this.cartRepository});
+  CartRepository cartRepository;
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -27,21 +29,14 @@ class _HomeTabState extends State<HomeTab> {
     runAddToCartAnimation(gkImage);
   }
 
-  countCart() {
-    int cartCount = 0;
-    for (int i = 0; i < appData.cartList.length; i++) {
-      cartCount = cartCount + appData.cartList[i].qtd;
-    }
-    return cartCount;
-  }
-
   bool isLoading = false;
 
-void dispose() {
-  // Cancela cualquier temporizador o detiene cualquier animación aquí
-  // Esto asegura que no se realicen actualizaciones de estado después de que el widget haya sido eliminado
-  super.dispose();
-}
+  @override
+  void dispose() {
+    // Cancela cualquier temporizador o detiene cualquier animación aquí
+    // Esto asegura que no se realicen actualizaciones de estado después de que el widget haya sido eliminado
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -50,7 +45,7 @@ void dispose() {
     Future.delayed(const Duration(seconds: 1), () {
       setState(() {
         isLoading = true;
-        cartQuantityItems = countCart();
+        cartQuantityItems = widget.cartRepository.getCount();
         cartKey.currentState!.runCartAnimation((cartQuantityItems).toString());
       });
     });
@@ -211,13 +206,13 @@ void dispose() {
                         ),
                         itemCount: appData.items.length,
                         itemBuilder: (_, index) {
-                          cartQuantityItems = countCart();
+                          cartQuantityItems = widget.cartRepository.getCount();
                           return ProductTile(
-                            item: appData.items[index],
-                            cartAnimationMathod: itemSelectedCartAnimation,
-                            cartQuantityItems: cartQuantityItems,
-                            globalKeyCartItems: cartKey,
-                          );
+                              item: appData.items[index],
+                              cartAnimationMathod: itemSelectedCartAnimation,
+                              cartQuantityItems: cartQuantityItems,
+                              globalKeyCartItems: cartKey,
+                              cartRepository: widget.cartRepository);
                         },
                       )
                     : GridView.count(
