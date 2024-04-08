@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengroocer/src/config/custom_colors.dart';
+import 'package:greengroocer/src/page_routes/app_pages.dart';
 import 'package:greengroocer/src/pages/auth/sign_in_screen.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,10 +24,9 @@ class _SplashScreenState extends State<SplashScreen> {
     await Future.delayed(const Duration(seconds: 2));
 
     // Navegue para a próxima tela (pode ser a tela inicial do aplicativo)
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(builder: (context) => const SignInScreen()),
-    );
+    
+      Get.offNamed(PageRoutes.signInRoute);
+  
   }
 
   @override

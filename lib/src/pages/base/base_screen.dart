@@ -4,6 +4,7 @@ import 'package:greengroocer/src/pages/cart/cart_tab.dart';
 import 'package:greengroocer/src/pages/home/home_tab.dart';
 import 'package:greengroocer/src/pages/order/order_tab.dart';
 import 'package:greengroocer/src/pages/profile/profile_tab.dart';
+import 'package:greengroocer/src/repository/cart_repository.dart';
 
 class BaseScreen extends StatefulWidget {
   const BaseScreen({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class BaseScreen extends StatefulWidget {
 class _BaseScreenState extends State<BaseScreen> {
   var currentIndex = 0;
   final pageController = PageController();
+  CartRepository cartRepository = CartRepository();
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +26,12 @@ class _BaseScreenState extends State<BaseScreen> {
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         children: [
-          const HomeTab(),
+          HomeTab(
+            cartRepository: cartRepository,
+          ),
           CartScreenView(
             controller: pageController,
+            cartRepository: cartRepository,
           ),
           const OrderTab(),
           const ProfileScreen(),

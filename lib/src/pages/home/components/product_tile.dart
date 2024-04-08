@@ -9,6 +9,7 @@ import 'package:greengroocer/src/models/item_model.dart';
 import 'package:greengroocer/src/pages/home/components/dialog_pix.dart';
 import 'package:greengroocer/src/pages/home/components/ncm_modal.dart';
 import 'package:greengroocer/src/pages/product/product_details_screen.dart';
+import 'package:greengroocer/src/repository/cart_repository.dart';
 import 'package:greengroocer/src/services/utils_services.dart';
 import 'package:greengroocer/src/config/app_data.dart' as appData;
 
@@ -19,13 +20,15 @@ class ProductTile extends StatelessWidget {
   final GlobalKey imageGk = GlobalKey();
   int cartQuantityItems;
   GlobalKey<CartIconKey> globalKeyCartItems;
+  CartRepository cartRepository;
 
   ProductTile(
       {super.key,
       required this.item,
       required this.cartAnimationMathod,
       required this.cartQuantityItems,
-      required this.globalKeyCartItems});
+      required this.globalKeyCartItems,
+      required this.cartRepository});
 
   UtilsServices utilsServices = UtilsServices();
 
@@ -109,10 +112,10 @@ class ProductTile extends StatelessWidget {
               child: InkWell(
                 onTap: () {
                   cartAnimationMathod(imageGk);
-                  cartQuantityItems = countCartItem();
+                  cartQuantityItems = cartRepository.getCount();
                   globalKeyCartItems.currentState!
                       .runCartAnimation((++cartQuantityItems).toString());
-                  addProductToOrder(item);
+                  cartRepository.addItemCart(item);
                   return;
                 },
                 child: Ink(
@@ -171,28 +174,5 @@ class ProductTile extends StatelessWidget {
         ),
       ],
     );
-  }
-
-  bool addProductToOrder(ItemModel item) {
-    bool itemExists = false;
-    for (int i = 0; i < appData.cartList.length; i++) {
-      if (appData.cartList[i].item.itemName == item.itemName) {
-        appData.cartList[i].qtd += 1;
-        itemExists = true;
-        break;
-      }
-    }
-    if (!itemExists) {
-      appData.cartList.add(CartItemModel(item: item, qtd: 1));
-    }
-    return true;
-  }
-
-  int countCartItem() {
-    int count = 0;
-    for (int i = 0; i < appData.cartList.length; i++) {
-      count = appData.cartList[i].qtd + count;
-    }
-    return count;
   }
 }

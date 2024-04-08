@@ -10,11 +10,16 @@ import 'package:greengroocer/src/models/order_model.dart';
 import 'package:greengroocer/src/pages/cart/cart_item_list.dart';
 import 'package:greengroocer/src/pages/home/components/dialog_pix.dart';
 import 'package:greengroocer/src/pages/order/order_tab.dart';
+import 'package:greengroocer/src/repository/cart_repository.dart';
 import 'package:greengroocer/src/services/utils_services.dart';
 
 class CartScreenView extends StatefulWidget {
-  CartScreenView({super.key, required this.controller});
+  CartScreenView(
+      {super.key, required this.controller, required this.cartRepository});
   PageController controller;
+  CartRepository cartRepository;
+  List<CartItemModel> novo = [];
+
   @override
   State<CartScreenView> createState() => _CartScreenViewState();
 }
@@ -22,29 +27,6 @@ class CartScreenView extends StatefulWidget {
 class _CartScreenViewState extends State<CartScreenView> {
   final UtilsServices utilsServices = UtilsServices();
   GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
-
-  void removeItemFromCart(CartItemModel cartItem) {
-    if (!mounted) return;
-    setState(() {
-      appData.cartList.remove(cartItem);
-    });
-  }
-
-  void clearCart() {
-    if (!mounted) return;
-    setState(() {
-      appData.cartList.clear();
-    });
-  }
-
-  double cartTotalPrice() {
-    double total = 0;
-
-    for (var item in appData.cartList) {
-      total += item.totalPrice();
-    }
-    return total;
-  }
 
   @override
   void dispose() {
@@ -64,7 +46,7 @@ class _CartScreenViewState extends State<CartScreenView> {
         backgroundColor: CustomColors.customPurpleColor,
       ),
       backgroundColor: Colors.white,
-      body: appData.cartList.isEmpty
+      body: widget.cartRepository.cartList.isEmpty
           ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -90,15 +72,17 @@ class _CartScreenViewState extends State<CartScreenView> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                    itemCount: appData.cartList.length,
+                    itemCount: widget.cartRepository.cartList.length,
                     itemBuilder: (BuildContext context, int index) {
                       return CartItemList(
-                        cartItem: appData.cartList[index],
+                        cartItem: widget.cartRepository.cartList[index],
                         updatedQuantity: (quantity) {
                           if (quantity == 0) {
-                            removeItemFromCart(appData.cartList[index]);
+                            widget.cartRepository.removeItemCart(
+                                widget.cartRepository.cartList[index]);
                           } else {
-                            updateCartItemQuantity(index, quantity);
+                            widget.cartRepository
+                                .updateCartItemQuantity(index, quantity);
                           }
                         },
                         remove: (CartItemModel) {},
@@ -127,7 +111,8 @@ class _CartScreenViewState extends State<CartScreenView> {
                     children: [
                       const Text('Total geral', style: TextStyle(fontSize: 12)),
                       Text(
-                        utilsServices.priceToCurrency(cartTotalPrice()),
+                        utilsServices.priceToCurrency(
+                            widget.cartRepository.cartTotalPrice()),
                         style: const TextStyle(
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
@@ -160,13 +145,6 @@ class _CartScreenViewState extends State<CartScreenView> {
     );
   }
 
-  void updateCartItemQuantity(int index, int quantity) {
-    if (!mounted) return;
-    setState(() {
-      appData.cartList[index].qtd = quantity;
-    });
-  }
-
   Future<void> confimationOrderModal() async {
     if (!mounted) return;
     return showDialog<void>(
@@ -184,17 +162,18 @@ class _CartScreenViewState extends State<CartScreenView> {
             ),
             TextButton(
               onPressed: () {
+                widget.novo = widget.cartRepository.cartList;
                 final myNewOrder = OrderModel(
-                  itens: cartList,
+                  itens: widget.novo,
                   orderID: Random().nextInt(1000000000).toString(),
-                  finalPrice: cartTotalPrice(),
+                  finalPrice: widget.cartRepository.cartTotalPrice(),
                   orderDate: DateTime.now(),
                   orderStatus: 'pending_payment',
                   dueDateOrderPay: DateTime.now().add(const Duration(days: 30)),
                   qrCodeValue: Random().nextInt(1000000000).toString(),
                 );
                 orders.add(myNewOrder);
-                clearCart();
+                // widget.cartRepository.clearCart();
 
                 Navigator.pop(context);
 

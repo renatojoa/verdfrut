@@ -9,18 +9,21 @@ class CustomTextField extends StatefulWidget {
   final String? isFilled;
   final bool isEdditable;
   final List<TextInputFormatter>? inputFormatters;
+  final Color textColor;
   final Color newBackgroundColor;
+  final String? Function(String?)? validator;
 
-  const CustomTextField({
-    super.key,
-    required this.icon,
-    required this.label,
-    this.isSecret = false,
-    this.inputFormatters,
-    this.isFilled,
-    this.isEdditable = true,
-    required this.newBackgroundColor,
-  });
+  const CustomTextField(
+      {super.key,
+      required this.icon,
+      required this.label,
+      this.isSecret = false,
+      this.inputFormatters,
+      this.isFilled,
+      this.isEdditable = true,
+      required this.newBackgroundColor,
+      this.validator,
+      this.textColor = Colors.white});
 
   @override
   State<CustomTextField> createState() => _CustomTextFieldState();
@@ -41,10 +44,14 @@ class _CustomTextFieldState extends State<CustomTextField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 15),
       child: TextFormField(
-        style: TextStyle(color: widget.newBackgroundColor),
+        cursorColor: CustomColors.customWhitechColor,
+        style: TextStyle(
+            color: widget.textColor,
+            decorationColor: CustomColors.customWhitechColor),
         enabled: widget.isEdditable ? true : false,
         inputFormatters: widget.inputFormatters,
         obscureText: isObscure,
+        validator: widget.validator,
         initialValue: widget.isFilled,
         decoration: InputDecoration(
           filled: true, // Define que o campo deve ser preenchid
@@ -64,6 +71,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 )
               : null,
           labelText: widget.label,
+          errorStyle: TextStyle(color: widget.textColor),
           labelStyle: TextStyle(
             color: Colors.white,
             decorationColor: CustomColors.customWhitechColor,

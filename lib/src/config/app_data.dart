@@ -82,8 +82,6 @@ List<String> categories = [
   'Lacticinios',
 ];
 
-List<CartItemModel> cartList = [];
-
 UserModel userData = UserModel(
     UserName: 'Renato Araujo',
     UserMail: 'renatojoa@gmail.com',

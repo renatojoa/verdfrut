@@ -1,12 +1,15 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:greengroocer/src/page_routes/app_pages.dart';
 import 'package:greengroocer/src/pages/auth/sign_up_screen.dart';
 import 'package:greengroocer/src/pages/base/base_screen.dart';
 import 'package:greengroocer/src/components/custom_text_field.dart';
 import 'package:greengroocer/src/config/custom_colors.dart';
 
 class SignInScreen extends StatelessWidget {
-  const SignInScreen({Key? key}) : super(key: key);
+  SignInScreen({Key? key}) : super(key: key);
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -74,117 +77,137 @@ class SignInScreen extends StatelessWidget {
                     borderRadius:
                         const BorderRadius.vertical(top: Radius.circular(45)),
                   ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      //Email
-                      CustomTextField(
-                        icon: Icons.email,
-                        label: 'Email',
-                        newBackgroundColor: CustomColors.customGreenColor,
-                      ),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        //Email
+                        CustomTextField(
+                          icon: Icons.email,
+                          label: 'Email',
+                          newBackgroundColor: CustomColors.customGreenColor,
+                          validator: (email) {
+                            if (email == null || email.isEmpty) {
+                              return 'Email e um campo obrigatorio';
+                            }
+                            if (!email.contains(RegExp(
+                                r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$'))) {
+                              return 'Digite um email valido';
+                            }
+                            return null;
+                          },
+                        ),
 
-                      //Senha
-                      CustomTextField(
-                        icon: Icons.lock,
-                        label: 'Password',
-                        isSecret: true,
-                        newBackgroundColor: CustomColors.customGreenColor,
-                      ),
+                        //Senha
+                        CustomTextField(
+                          icon: Icons.lock,
+                          label: 'Password',
+                          isSecret: true,
+                          newBackgroundColor: CustomColors.customGreenColor,
+                          validator: (password) {
+                            if (password == null || password.isEmpty) {
+                              return 'Senha e um campo obrigatorio';
+                            }
+                            if (password.length < 6) {
+                              return 'Senha deve possuir mais de 6 caracteres';
+                            }
+                            if (!password
+                                .contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
+                              return 'Senha deve possuir caractere especial';
+                            }
+                            return null;
+                          },
+                        ),
 
-                      SizedBox(
-                        height: 50,
-                        width: 120,
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: CustomColors.customPurpleColor,
-                                shadowColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18),
-                                    side: BorderSide(
-                                        width: 1,
-                                        color:
-                                            CustomColors.customWhitechColor))),
-                            onPressed: () {
-                              var pushReplacement =
-                                  Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(builder: (c) {
-                                  return BaseScreen();
-                                }),
-                              );
-                            },
+                        SizedBox(
+                          height: 50,
+                          width: 120,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  backgroundColor:
+                                      CustomColors.customPurpleColor,
+                                  shadowColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18),
+                                      side: BorderSide(
+                                          width: 1,
+                                          color: CustomColors
+                                              .customWhitechColor))),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  Get.toNamed(PageRoutes.baseRoute);
+                                }
+                              },
+                              child: Text(
+                                'Entrar',
+                                style: TextStyle(
+                                  color: CustomColors.customWhitechColor,
+                                ),
+                              )),
+                        ),
+                        Align(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: () {},
                             child: Text(
-                              'Entrar',
+                              'Esqueceu a senha?',
                               style: TextStyle(
-                                color: CustomColors.customWhitechColor,
-                              ),
-                            )),
-                      ),
-                      Align(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Esqueceu a senha?',
-                            style: TextStyle(
-                                color: CustomColors.customWhitechColor),
+                                  color: CustomColors.customWhitechColor),
+                            ),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 10),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Divider(
-                                color: Colors.grey.withAlpha(90),
-                                thickness: 2,
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 10),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.grey.withAlpha(90),
+                                  thickness: 2,
+                                ),
                               ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 15),
-                              child: Text(
-                                'ou',
-                                style: TextStyle(
-                                    color: CustomColors.customWhitechColor),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 15),
+                                child: Text(
+                                  'ou',
+                                  style: TextStyle(
+                                      color: CustomColors.customWhitechColor),
+                                ),
                               ),
-                            ),
-                            Expanded(
-                              child: Divider(
-                                color: Colors.grey.withAlpha(90),
-                                thickness: 2,
+                              Expanded(
+                                child: Divider(
+                                  color: Colors.grey.withAlpha(90),
+                                  thickness: 2,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 50,
-                        width: 120,
-                        child: OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                                side: BorderSide(
-                                    width: 1,
-                                    color: CustomColors.customWhitechColor),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18))),
-                            onPressed: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(builder: (c) {
-                                  return const SignUpScreen();
-                                }),
-                              );
-                            },
-                            child: Text(
-                              'Criar Conta',
-                              style: TextStyle(
-                                color: CustomColors.customWhitechColor,
-                                fontSize: 18,
-                              ),
-                            )),
-                      ),
-                    ],
+                        SizedBox(
+                          height: 50,
+                          width: 120,
+                          child: OutlinedButton(
+                              style: OutlinedButton.styleFrom(
+                                  side: BorderSide(
+                                      width: 1,
+                                      color: CustomColors.customWhitechColor),
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(18))),
+                              onPressed: () {
+                                Get.toNamed(PageRoutes.signUnRoute);
+                              },
+                              child: Text(
+                                'Criar Conta',
+                                style: TextStyle(
+                                  color: CustomColors.customWhitechColor,
+                                  fontSize: 18,
+                                ),
+                              )),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ]),
