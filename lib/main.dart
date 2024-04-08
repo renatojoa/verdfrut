@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:greengroocer/src/config/splash_screen.dart';
+import 'package:greengroocer/src/page_routes/app_pages.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'VerdFrut',
       
       theme: ThemeData(
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
       ),
       
       debugShowCheckedModeBanner: false,
-      home: SplashScreen(),
+      initialRoute: PageRoutes.splashRoute,
+      getPages: AppPages.pages,
       
     );
     
